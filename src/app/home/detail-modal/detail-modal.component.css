@@ -1,0 +1,65 @@
+#modal {
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+}
+img {
+  max-width: 100%;
+  margin-top: 30px;
+  max-height: 80%;
+  margin-bottom: 30px;
+}
+
+.details p {
+  display: inline;
+  font-size: 30px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.details {
+  padding: 30px;
+  padding-left: 0;
+  width: 100%;
+}
+
+#city {
+  margin-left: 50px;
+  display: block;
+}
+
+ol {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+button {
+  text-transform: initial;
+  font-style: italic;
+  display: block;
+  font-size: 15px;
+  padding-bottom: 0.7rem;
+  padding-top: 0.7rem;
+}
+
+span {
+  display: block;
+  font-size: 25px;
+  color: black;
+  font-weight: 500;
+  text-align: center;
+  font-style: italic;
+}
+
+.button {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+#message {
+  font-size: 20px;
+  font-weight: 400;
+  color: blue;
+  font-style: italic;
+}
