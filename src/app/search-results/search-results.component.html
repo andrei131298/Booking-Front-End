@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="container">
+  <div class="">
+    <ng-container *ngFor="let property of properties">
+      <div class="view col mb-3 mr-3 p-0 hoverable">
+        <img class="pozeCazari" src="{{ 'assets/images/' + property.photo }}" />
+        <div class="detaliiProp">
+          <p id="p1">
+            {{ property.name.toString() }}
+          </p>
+          <p id="p2">
+            {{ property.cityName }}
+          </p>
+          <div class="stele">
+            <img
+              id="stea"
+              src="assets/images/2184499.png"
+              *ngFor="let star of counter(property.numberOfStars)"
+            />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="properties == null">
+        <h1>There is no results to show</h1>
+      </div>
+    </ng-container>
+  </div>
+</div>

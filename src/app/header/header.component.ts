@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { AuthService } from "../auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-header",
@@ -6,7 +8,18 @@ import { Component, OnInit, ViewChild } from "@angular/core";
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  storage = localStorage.getItem("isLoggedIn");
+  firstName: string;
 
-  ngOnInit() {}
+  logout(): void {
+    console.log("Logout");
+    this.authService.logout();
+    this.router.navigate(["/home"]);
+  }
+
+  constructor(public authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.firstName = localStorage.getItem("token");
+  }
 }

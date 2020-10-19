@@ -1,0 +1,17 @@
+h1 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  text-align: center;
+}
+.form-container {
+  max-width: 30%;
+  text-align: center;
+  margin: auto;
+  border-top-color: white !important;
+  padding-bottom: 3rem;
+}
+
+.button {
+  background-color: rgb(23, 87, 143);
+}

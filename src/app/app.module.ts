@@ -16,7 +16,9 @@ import { HomeComponent } from "./home/home.component";
 import { CommonModule } from "@angular/common";
 import { SignUpComponent } from "./signUp/signUp.component";
 import { DetailModalComponent } from "./home/detail-modal/detail-modal.component";
-import { from } from "rxjs";
+import { SearchResult } from "./search-results/search-results.component";
+import { AuthGuard } from "./auth.guard";
+import { LoginComponent } from "./login/login.component";
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { from } from "rxjs";
     AppComponent,
     HomeComponent,
     HeaderComponent,
+    LoginComponent,
     SignUpComponent,
     FieldErrorDisplayComponent,
     DetailModalComponent,
+    SearchResult,
   ],
   imports: [
     CommonModule,
@@ -42,5 +46,6 @@ import { from } from "rxjs";
   ],
   exports: [],
   bootstrap: [AppComponent],
+  providers: [AuthGuard],
 })
 export class AppModule {}

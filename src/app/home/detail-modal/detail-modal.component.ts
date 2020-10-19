@@ -40,10 +40,6 @@ export class DetailModalComponent implements OnInit {
         this.property = data;
         this.property.id = id;
         console.log(this.property);
-        // if (!data.img) {
-        //   this.album.img = 'https://i.ibb.co/0cBJC3N/3.jpg';
-        // }
-        this.getCity(this.property.cityId);
       },
       (err: Error) => {
         console.log("err", err);

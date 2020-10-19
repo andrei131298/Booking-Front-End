@@ -3,8 +3,8 @@ export class Reservation {
   numberOfDays: number;
   price: number;
   review: string;
-  checkIn: Date;
-  checkOut: Date;
+  checkIn: String;
+  checkOut: String;
   userId: number;
   apartmentId: number;
 

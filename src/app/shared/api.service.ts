@@ -57,11 +57,23 @@ export class ApiService {
       headers: this.header,
     });
   }
-
+  getUsers() {
+    return this.http.get(this.baseUrl + "/User", { headers: this.header });
+  }
   getProperties() {
     return this.http.get(this.baseUrl + "/Property", { headers: this.header });
   }
-
+  getApartments() {
+    return this.http.get(this.baseUrl + "/Apartment", { headers: this.header });
+  }
+  getCities() {
+    return this.http.get(this.baseUrl + "/City", { headers: this.header });
+  }
+  getReservations() {
+    return this.http.get(this.baseUrl + "/Reservation", {
+      headers: this.header,
+    });
+  }
   // getSongs() {
   //   return this.http.get(this.baseUrl + "/song", { headers: this.header });
   // }

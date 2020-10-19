@@ -24,13 +24,19 @@
   <input
     id="numberOfPersons"
     type="number"
-    id="numberOfPersons"
     min="1"
     max="30"
     onKeyDown="return false"
     placeholder="Number of persons"
+    [(ngModel)]="maxPers"
+    name="maxPers"
   />
-  <button type="button" id="submit" class="btn btn-primary" (click)="functie()">
+  <button
+    type="button"
+    id="submit"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+  >
     Submit
   </button>
 </form>

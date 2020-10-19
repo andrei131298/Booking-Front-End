@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { User } from "../shared/user.model";
+import { Router } from "@angular/router";
+
 import {
   FormBuilder,
   FormGroup,
@@ -17,8 +20,13 @@ export class SignUpComponent implements OnInit {
   addUserForm: FormGroup;
   success: boolean;
   birthDate: string;
+  returnUrl = "/home";
 
-  constructor(public fb: FormBuilder, private api: ApiService) {}
+  constructor(
+    public fb: FormBuilder,
+    private api: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.addUserForm = this.fb.group({
@@ -29,6 +37,10 @@ export class SignUpComponent implements OnInit {
       birthDate: [null, Validators.required],
       sex: [null, Validators.required],
     });
+  }
+
+  get f() {
+    return this.addUserForm.controls;
   }
 
   isFieldValid(field: string) {
@@ -43,7 +55,6 @@ export class SignUpComponent implements OnInit {
       "has-feedback": this.isFieldValid(field),
     };
   }
-
   onSubmit() {
     if (this.addUserForm.valid) {
       this.success = true;
@@ -52,6 +63,9 @@ export class SignUpComponent implements OnInit {
       }, 3000);
       console.log("addUserForm submitted");
       this.api["add" + this.selectedOption](this.addUserForm.value).subscribe();
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", this.f.firstName.value);
+      this.router.navigate([this.returnUrl]);
     } else {
       this.success = false;
       setTimeout(() => {

@@ -3,17 +3,29 @@
     <h2 class="logo">Booking</h2>
   </a>
 
-  <div>
-    <ul class="nav navbar">
-      <li class="nav-item" routerLinkActive="active-page"></li>
-      <a class="nav-link" routerLink="/signUp">
-        <button type="button" class="btn btn-primary">Sign Up</button>
-      </a>
-      <li class="nav-item" routerLinkActive="active-page">
-        <a class="nav-link" routerLink="/login">
-          <button type="button" class="btn btn-primary">Login</button>
+  <div *ngIf="storage == 'true'">
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3 loginBox">
+        {{ firstName }}
+      </div>
+      <button type="button" class="btn btn-primary" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+  <div *ngIf="storage == 'false'">
+    <div>
+      <ul class="nav navbar">
+        <li class="nav-item"></li>
+        <a class="nav-link" routerLink="/signUp">
+          <button type="button" class="btn btn-primary">Sign Up</button>
         </a>
-      </li>
-    </ul>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">
+            <button type="button" class="btn btn-primary">Login</button>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -1,7 +1,7 @@
 <app-header></app-header>
 <h1>Sign up</h1>
 <div class="container">
-  <form class="form-horizontal" [formGroup]="addUserForm">
+  <form class="form-container" [formGroup]="addUserForm">
     <div class="form-group">
       <div class="col-sm-12">
         <label for="firstName" class="control-label required">First name</label>
@@ -62,14 +62,17 @@
 
     <div class="form-group">
       <div class="col-sm-12">
-        <label for="password" class="control-label required">Password</label>
+        <label for="password" class="control-label required"
+          >Password (must contain at least 8 characters and at least one
+          number)</label
+        >
         <input
           type="password"
           id="password"
           class="form-control"
           formControlName="password"
           autocomplete="off"
-          pattern=""
+          pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
         />
         <app-field-error-display
           [displayError]="isFieldValid('password')"
@@ -118,10 +121,10 @@
     <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
     <button class="btn btn-primary" (click)="reset()">Reset</button>
   </form>
-  <p *ngIf="success" style="color: green; font-size: 22px;">
+  <p *ngIf="success" style="color: green; font-size: 22px">
     {{ selectedOption.toUpperCase() }} added successfully
   </p>
-  <p *ngIf="success === false" style="color: red; font-size: 22px;">
+  <p *ngIf="success === false" style="color: red; font-size: 22px">
     Something went wrong
   </p>
 </div>
