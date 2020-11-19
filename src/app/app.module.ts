@@ -19,10 +19,15 @@ import { DetailModalComponent } from "./home/detail-modal/detail-modal.component
 import { SearchResult } from "./search-results/search-results.component";
 import { AuthGuard } from "./auth.guard";
 import { LoginComponent } from "./login/login.component";
+import { PropertyProfileComponent } from './property-profile/property-profile.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     SearchPipe,
+    ReservationComponent,
     AppComponent,
     HomeComponent,
     HeaderComponent,
@@ -31,6 +36,8 @@ import { LoginComponent } from "./login/login.component";
     FieldErrorDisplayComponent,
     DetailModalComponent,
     SearchResult,
+    PropertyProfileComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +53,6 @@ import { LoginComponent } from "./login/login.component";
   ],
   exports: [],
   bootstrap: [AppComponent],
-  providers: [AuthGuard],
+  providers: [AuthGuard, SearchResult],
 })
 export class AppModule {}

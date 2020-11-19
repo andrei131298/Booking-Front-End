@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import {
   CanActivate,
-  CanActivateChild,
   Router,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
@@ -18,7 +17,7 @@ export class AuthGuard implements CanActivate {
     let url: string = state.url;
     return this.verifyLogin(url);
   }
-
+  
   verifyLogin(url): boolean {
     if (!this.isLoggedIn()) {
       this.router.navigate(["/login"]);

@@ -28,8 +28,10 @@ export class LoginComponent implements OnInit {
   success: boolean;
   users: User[] = [];
   returnUrl = "/home";
+  triedWithoutLogin = JSON.parse(localStorage.getItem('triedWithoutLogin'));
 
   ngOnInit() {
+    console.log(this.triedWithoutLogin)
     this.loginForm = this.fb.group({
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
@@ -85,12 +87,18 @@ export class LoginComponent implements OnInit {
     if (!user) this.success = false;
     else {
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("token", this.f.firstName.value);
-      setTimeout(() => {
-        this.router.navigate([this.returnUrl]);
-      }, 3000);
+      if(this.triedWithoutLogin == true){
+        localStorage.setItem("triedWithoutLogin", "false");
+        localStorage.setItem("token", this.f.firstName.value);
+        this.router.navigate(["/reservation"]);
+      }
+      else{
+        localStorage.setItem("token", this.f.firstName.value);
+        setTimeout(() => {
+          this.router.navigate([this.returnUrl]);
+        }, 3000);
+      }
     }
-    console.log(user);
   }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {

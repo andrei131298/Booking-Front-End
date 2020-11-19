@@ -56,13 +56,13 @@
         <div class="view col mb-3 mr-3 p-0 hoverable">
           <img
             class="pozeCazari"
-            src="{{ 'assets/images/' + property.photo }}"
+            src="{{ property.photo }}"
             alt="hoverable"
             (click)="searchText = property.name"
           />
 
           <div class="detail">
-            <p id="p1" (click)="searchText = property.name">
+            <p id="p1" (click)="searchText = property.name"></p>
               {{ property.name.toString() }}
               <svg
                 width="1em"
@@ -78,7 +78,6 @@
                   d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
                 />
               </svg>
-            </p>
           </div>
         </div>
       </ng-container>

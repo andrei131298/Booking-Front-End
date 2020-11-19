@@ -23,15 +23,19 @@ ul {
   background-color: rgb(23, 87, 143);
 }
 
-/* .nav-item a:hover {
-  color: white;
-  background: #989898;
-  border: 1px solid transparent;
-  transition: background 0.3s ease-in-out;
-} */
+.btn:hover {
+  color: #ff7a59;
+  border: #ff7a59 solid 2px;
+  background: #fff;
+}
 .active-page {
   background: #989898;
 }
-.loginBox {
+.firstName {
   color: white;
+  margin-right: 30px;
+}
+.firstName:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

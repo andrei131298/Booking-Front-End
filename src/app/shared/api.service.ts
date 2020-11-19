@@ -26,9 +26,7 @@ export class ApiService {
   }
 
   getApartment(id: number) {
-    return this.http.get(this.baseUrl + "/Apartment/" + id.toString(), {
-      headers: this.header,
-    });
+    return this.http.get(this.baseUrl + "/Apartment/" + id.toString());
   }
 
   getFavourite(id: number) {

@@ -4,13 +4,13 @@ export class Property {
   type: string;
   description: string;
   numberOfStars: number;
-  cityName: string[];
-  ownerName: string[];
+  cityName: string;
+  ownerName: string;
   street: string;
   streetNumber: number;
   photo: string;
-  cityId: number[];
-  ownerId: number[];
+  cityId: number;
+  ownerId: number;
 
   constructor(input?: any) {
     Object.assign(this, input);

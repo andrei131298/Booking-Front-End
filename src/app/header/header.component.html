@@ -1,11 +1,11 @@
 <nav class="navbar navbar-dark bg-dark">
   <a routerLink="/" class="navbar-brand">
-    <h2 class="logo">Booking</h2>
+    <h2 class="logo">VacayCheck</h2>
   </a>
 
   <div *ngIf="storage == 'true'">
     <div class="container">
-      <div class="col-md-6 col-md-offset-3 loginBox">
+      <div class="firstName" routerLink="/user-profile">
         {{ firstName }}
       </div>
       <button type="button" class="btn btn-primary" (click)="logout()">
