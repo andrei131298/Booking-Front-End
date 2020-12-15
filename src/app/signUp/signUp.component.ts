@@ -63,8 +63,8 @@ export class SignUpComponent implements OnInit {
       }, 3000);
       console.log("addUserForm submitted");
       this.api["add" + this.selectedOption](this.addUserForm.value).subscribe();
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("token", this.f.firstName.value);
+      sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("token", this.f.firstName.value);
       this.router.navigate([this.returnUrl]);
     } else {
       this.success = false;

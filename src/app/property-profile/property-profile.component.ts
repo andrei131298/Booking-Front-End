@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../shared/api.service';
 import { SearchResult } from '../search-results/search-results.component';
 import { Apartment } from '../shared/apartment.model';
 import { Property } from '../shared/property.model';
 import { Reservation } from '../shared/reservation.model';
+import { LoaderComponent } from '../loader/loader.component';
+import { Favourite } from '../shared/favourite.model';
 
 
 @Component({
@@ -14,7 +16,9 @@ import { Reservation } from '../shared/reservation.model';
 })
 export class PropertyProfileComponent implements OnInit {
 
-  constructor(private api: ApiService, private router: Router,private route: ActivatedRoute, private search: SearchResult) {
+  @ViewChild("loader") detailModal: LoaderComponent;
+
+  constructor(private api: ApiService, private router: Router,private route: ActivatedRoute) {
   }
   propertyId=parseInt(this.route.snapshot.queryParamMap.get('propertyId'));
   dateRange0=new Date(this.route.snapshot.queryParamMap.get('dateRange0'));
@@ -28,6 +32,11 @@ export class PropertyProfileComponent implements OnInit {
   apartmentResults: Apartment[] = [];
   apartmentResults2: Apartment[] = [];
   property:Property;
+  isLoaded = false;
+  favourite=new Favourite();
+  userId = parseInt(JSON.parse(sessionStorage.getItem('userId')));
+
+
   ngOnInit() {
     this.api.getApartments().subscribe((apartments: Apartment[]) => {
       this.apartments=apartments;
@@ -41,6 +50,9 @@ export class PropertyProfileComponent implements OnInit {
     setTimeout(() => {
       this.searchApartments();
   }, 1000);
+    setTimeout(() => {
+      this.isLoaded=true;
+  }, 1500);
   }
   searchApartments(){
   for (var apartment of this.apartments) {
@@ -82,7 +94,7 @@ export class PropertyProfileComponent implements OnInit {
     this.api.getApartment(apartment.id).subscribe((data:Apartment) => {
       this.apartmentResults2.push(data);
     });
-  }
+  } 
   console.log(this.apartmentResults2)
   
 }
@@ -91,16 +103,31 @@ export class PropertyProfileComponent implements OnInit {
   }
 
   check(){
-    if(JSON.parse(localStorage.getItem('isLoggedIn')) == false){
-      localStorage.setItem("triedWithoutLogin", "true");
-      console.log(localStorage.getItem("triedWithoutLogin"));
+    if(JSON.parse(sessionStorage.getItem('isLoggedIn')) == false){
+      sessionStorage.setItem("triedWithoutLogin", "true");
+      console.log(sessionStorage.getItem("triedWithoutLogin"));
       this.router.navigate(["/login"]);
       setTimeout(() => {
-        localStorage.setItem("triedWithoutLogin", "false");
+        sessionStorage.setItem("triedWithoutLogin", "false");
     }, 1000);
     }
   }
-  
+  addToFavourites(){
+    if(JSON.parse(sessionStorage.getItem('isLoggedIn')) == false){
+      sessionStorage.setItem("triedWithoutLogin", "true");
+      console.log(sessionStorage.getItem("triedWithoutLogin"));
+      this.router.navigate(["/login"]);
+      setTimeout(() => {
+        sessionStorage.setItem("triedWithoutLogin", "false");
+    }, 1000);
+    }
+    else{
+      this.favourite.propertyId=this.propertyId;
+      this.favourite.userId=this.userId;
+      this.api.addFavourite(this.favourite).subscribe();
+      console.log(this.favourite);
+    }
+  }
   set(apartmentId: number){
     console.log(apartmentId);
   this.router.navigate(["/reservation"],

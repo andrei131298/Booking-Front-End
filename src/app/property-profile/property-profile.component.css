@@ -1,3 +1,6 @@
+.detaliiProp {
+  margin-left: 60px;
+}
 .pozeCazari {
   object-fit: cover;
   height: 400px;
@@ -5,11 +8,9 @@
 }
 #p1 {
   font-size: 26px;
-  margin-left: 60px;
 }
 #p2 {
   font-size: 22px;
-  margin-left: 60px;
 }
 .view {
   margin-top: 20px;
@@ -17,7 +18,8 @@
   width: 96%;
   display: flex;
   align-items: center;
-  border: 2px solid rgb(23, 87, 143);
+  border-bottom: 12px solid rgb(75, 75, 75);
+  border-top: 12px solid rgb(75, 75, 75);
   border-radius: 7px;
   background-color: rgb(57, 147, 226);
   box-shadow: 0 2px 3px rgb(37, 37, 37);
@@ -36,7 +38,6 @@
 .stele {
   display: flex;
   flex-direction: row;
-  margin-left: 60px;
 }
 #stea {
   width: 50px;

@@ -23,6 +23,7 @@ import { PropertyProfileComponent } from './property-profile/property-profile.co
 import { ReservationComponent } from './reservation/reservation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RouterModule } from '@angular/router';
     SearchResult,
     PropertyProfileComponent,
     UserProfileComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,

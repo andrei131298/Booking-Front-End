@@ -1,3 +1,5 @@
+<app-loader #loader *ngIf="isLoaded == false"></app-loader>
+<div *ngIf="isLoaded == true">
 <app-header></app-header>
 <div class="period">
 <p id="p3" *ngIf="period == 1 ">Your results for {{period}} day</p>
@@ -29,4 +31,5 @@
       </div>
     </ng-container>
   </div>
+</div>
 </div>

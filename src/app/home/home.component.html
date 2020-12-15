@@ -19,7 +19,10 @@
     [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY' }"
     autocomplete="off"
     [(ngModel)]="bsRangeValue"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
     [ngModelOptions]="{ standalone: true }"
+    
   />
   <input
     id="numberOfPersons"

@@ -1,20 +1,23 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ApiService } from "../shared/api.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from '../shared/property.model';
 import { Apartment } from '../shared/apartment.model';
 import { Reservation } from '../shared/reservation.model';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: "search-results",
   templateUrl: "./search-results.component.html",
   styleUrls: ["./search-results.component.css"],
 })
+
 export class SearchResult implements OnInit {
   constructor(private api: ApiService, private router: Router,private route: ActivatedRoute) {
     
   }
-
+  @ViewChild("loader") detailModal: LoaderComponent;
+  
   properties:Property[]=[];
   reservations: Reservation[] = [];
   apartments: Apartment[] = [];
@@ -24,6 +27,7 @@ export class SearchResult implements OnInit {
   dateRange0=new Date(this.route.snapshot.queryParamMap.get('dateRange0'));
   dateRange1=new Date(this.route.snapshot.queryParamMap.get('dateRange1'));
   persons=parseInt(this.route.snapshot.queryParamMap.get('persons'));
+  isLoaded=false;
 
   counter(i: number) {
     return new Array(i);
@@ -80,6 +84,8 @@ export class SearchResult implements OnInit {
     setTimeout(() => {
       this.searchProperty();
   }, 1000);
-
-  }
+    setTimeout(() => {
+      this.isLoaded=true;
+  }, 1500);
+    }
 }

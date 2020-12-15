@@ -1,1 +1,47 @@
+<app-loader #loader *ngIf="isLoaded == false"></app-loader>
+<div *ngIf="isLoaded == true">
 <app-header></app-header>
+<div class="profileDetails">
+    <div class="profile">
+        <img class="profilePhoto" src="assets/images/profile.png" />
+        <p id="firstName"> {{activeUser.firstName}} </p>
+    </div>
+    <!-- <div class="rank"> Ranking </div> -->
+</div>
+<h1 id="title">Properties and reservations</h1>
+<div class="options">
+    <div>
+      <ul class="nav">
+        <a *ngFor="let option of options" class="nav-link">
+          <p class="opt" (click)="changeOption(option)">{{option}}</p>
+        </a>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="selectedOption == 'Saved properties'">
+
+  <div *ngFor="let property of savedProperties">
+        {{property.propertyName}}
+      </div>
+</div>
+
+  <div *ngFor="let reservation of userReservations">
+    <div *ngIf="selectedOption == 'Future reservations'">
+      {{reservation.checkIn}}
+    <div *ngIf="reservation.checkIn >currentDate && reservation.checkOut>currentDate ">
+      {{reservation.propertyName}} - {{reservation.apartmentName}}
+    </div>
+    </div>
+    <div *ngIf="selectedOption == 'Reservations history'">
+      <div *ngIf="reservation.checkIn <currentDate && reservation.checkOut<currentDate ">
+        {{reservation.propertyName}} - {{reservation.apartmentName}}
+      </div>
+    </div>
+    <div *ngIf="selectedOption == 'Current reservations'">
+      <div *ngIf="reservation.checkIn < currentDate && reservation.checkOut>currentDate ">
+        {{reservation.propertyName}} - {{reservation.apartmentName}}
+      </div>
+    </div>
+  </div>

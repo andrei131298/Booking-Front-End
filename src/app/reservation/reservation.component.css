@@ -1,70 +1,35 @@
-.pozeCazari {
-  object-fit: cover;
-  height: 400px;
-  width: 400px;
+.container {
+  width: 50%;
+  margin-top: 40px;
 }
-#p1 {
-  font-size: 26px;
-  margin-left: 60px;
-}
-#p2 {
-  font-size: 22px;
-  margin-left: 60px;
-}
-.view {
-  margin-top: 20px;
-  margin-left: 10px;
-  width: 96%;
+.reservation {
   display: flex;
   align-items: center;
-  border: 2px solid rgb(23, 87, 143);
-  border-radius: 7px;
-  background-color: rgb(57, 147, 226);
-  box-shadow: 0 2px 3px rgb(37, 37, 37);
+  flex-direction: column;
+  border-radius: 10px;
+  border-bottom: 12px solid black;
+  border-top: 12px solid black;
+  background-color: rgb(228, 222, 222);
+  padding-bottom: 50px;
+  font-size: 20px;
 }
-.secondView {
-  margin-top: 20px;
-  margin-left: 10px;
-  width: 96%;
-  display: flex;
-  align-items: center;
-  border: 2px solid rgb(23, 87, 143);
-  border-radius: 7px;
-  background-color: rgb(129, 185, 235);
-  box-shadow: 0 2px 3px rgb(37, 37, 37);
-}
-.stele {
-  display: flex;
-  flex-direction: row;
-  margin-left: 60px;
-}
-#stea {
-  width: 50px;
-}
-.persoane {
-  display: flex;
-  flex-direction: row;
-}
-#persoana {
-  width: 40px;
+#title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-weight: bold;
 }
 .btn {
   background-color: rgb(23, 87, 143);
 }
-.apDetail {
-  margin-left: 100px;
-}
+
 .btn:hover {
   color: #ff7a59;
   border: #ff7a59 solid 2px;
   background: #fff;
 }
-#apName:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.apPhoto {
+#apPhoto {
   object-fit: cover;
   height: 200px;
-  width: 200px;
+  width: 250px;
+  margin-bottom: 20px;
 }

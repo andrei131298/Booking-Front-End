@@ -5,7 +5,7 @@
 
   <div *ngIf="storage == 'true'">
     <div class="container">
-      <div class="firstName" routerLink="/user-profile">
+      <div class="firstName" (click)="openProfile()">
         {{ firstName }}
       </div>
       <button type="button" class="btn btn-primary" (click)="logout()">
@@ -13,7 +13,7 @@
       </button>
     </div>
   </div>
-  <div *ngIf="storage == 'false'">
+  <div *ngIf="storage == 'false' || storage==null">
     <div>
       <ul class="nav navbar">
         <li class="nav-item"></li>

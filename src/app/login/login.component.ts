@@ -28,13 +28,12 @@ export class LoginComponent implements OnInit {
   success: boolean;
   users: User[] = [];
   returnUrl = "/home";
-  triedWithoutLogin = JSON.parse(localStorage.getItem('triedWithoutLogin'));
+  triedWithoutLogin = JSON.parse(sessionStorage.getItem('triedWithoutLogin'));
 
   ngOnInit() {
     console.log(this.triedWithoutLogin)
     this.loginForm = this.fb.group({
-      firstName: [null, Validators.required],
-      lastName: [null, Validators.required],
+      email: [null, Validators.required],
       password: [null, Validators.required],
     });
 
@@ -78,22 +77,22 @@ export class LoginComponent implements OnInit {
       }, 3000);
       this.validateAllFormFields(this.loginForm);
     }
-    const user = this.users.find(
+    var user = this.users.find(
       (x) =>
-        x.firstName === this.f.firstName.value &&
-        x.lastName === this.f.lastName.value &&
+        x.email === this.f.email.value &&
         x.password === this.f.password.value
     );
     if (!user) this.success = false;
     else {
-      localStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("userId", JSON.stringify(user.id));
       if(this.triedWithoutLogin == true){
-        localStorage.setItem("triedWithoutLogin", "false");
-        localStorage.setItem("token", this.f.firstName.value);
+        sessionStorage.setItem("triedWithoutLogin", "false");
+        sessionStorage.setItem("token", user.firstName);
         this.router.navigate(["/reservation"]);
       }
       else{
-        localStorage.setItem("token", this.f.firstName.value);
+        sessionStorage.setItem("token", user.firstName);
         setTimeout(() => {
           this.router.navigate([this.returnUrl]);
         }, 3000);

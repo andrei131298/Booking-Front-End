@@ -1,3 +1,5 @@
+<app-loader #loader *ngIf="isLoaded == false"></app-loader>
+<div *ngIf="isLoaded == true">
 <app-header></app-header>
 <div class="container">
   <div class="">
@@ -17,6 +19,7 @@
               *ngFor="let star of counter(property.numberOfStars)"
             />
           </div>
+          <button type="button" style="margin-top: 20px;" class="btn btn-primary" (click)="addToFavourites()">Add to favourites</button>
         </div>
       </div>
       <div class="secondView" *ngFor="let apartment of apartmentResults2">
@@ -39,4 +42,5 @@
         </div>  
       </div>
   </div>
+</div>
 </div>

@@ -29,12 +29,11 @@ export class ApiService {
     return this.http.get(this.baseUrl + "/Apartment/" + id.toString());
   }
 
-  getFavourite(id: number) {
-    return this.http.get(this.baseUrl + "/Favourites/" + id.toString(), {
+  getFavouritesByUser(userId: number) {
+    return this.http.get(this.baseUrl + "/Favourite/user/" + userId.toString(), {
       headers: this.header,
     });
   }
-
   getOwner(id: number) {
     return this.http.get(this.baseUrl + "/Owner/" + id.toString(), {
       headers: this.header,
@@ -55,6 +54,11 @@ export class ApiService {
       headers: this.header,
     });
   }
+  getReservationsByUser(userId:number){
+    return this.http.get(this.baseUrl + "/Reservation/user/" + userId.toString(), {
+      headers: this.header,
+    });
+  }
   getUsers() {
     return this.http.get(this.baseUrl + "/User", { headers: this.header });
   }
@@ -72,14 +76,6 @@ export class ApiService {
       headers: this.header,
     });
   }
-  // getSongs() {
-  //   return this.http.get(this.baseUrl + "/song", { headers: this.header });
-  // }
-
-  // getArtists() {
-  //   return this.http.get(this.baseUrl + "/artist", { headers: this.header });
-  // }
-
   addProperty(property) {
     return this.http.post(
       this.baseUrl + "/Property",
@@ -121,26 +117,31 @@ export class ApiService {
   //       headers: this.header,
   //     });
   //   }
-  //   addResrvation(song: Song) {
-  //     return this.http.post(this.baseUrl + "/Reservation", song, {
-  //       headers: this.header,
-  //     });
-  //   }
+    addReservation(reservation:Reservation) {
+      return this.http.post(this.baseUrl + "/Reservation", reservation, {
+        headers: this.header,
+      });
+    }
 
-  //   // addAlbum(album) {
-  //   //   return this.http.post(
-  //   //     this.baseUrl + "/album",
-  //   //     {
-  //   //       name: album.name,
-  //   //       releaseYear: album.releaseYear,
-  //   //       studioId: album.studioId,
-  //   //       artistId: JSON.parse("[" + album.artistId + "]"),
-  //   //       songId: JSON.parse("[" + album.songId + "]"),
-  //   //       img: album.img,
-  //   //     },
-  //   //     { headers: this.header }
-  //   //   );
-  //   // }
+    addFavourite(favourite:Favourite) {
+      return this.http.post(this.baseUrl + "/Favourite", favourite, {
+        headers: this.header,
+      });
+    }
+    // addAlbum(album) {
+    //   return this.http.post(
+    //     this.baseUrl + "/album",
+    //     {
+    //       name: album.name,
+    //       releaseYear: album.releaseYear,
+    //       studioId: album.studioId,
+    //       artistId: JSON.parse("[" + album.artistId + "]"),
+    //       songId: JSON.parse("[" + album.songId + "]"),
+    //       img: album.img,
+    //     },
+    //     { headers: this.header }
+    //   );
+    // }
 
   //   deleteAlbum(id: number) {
   //     return this.http.delete(this.baseUrl + "/album/" + id.toString(), {

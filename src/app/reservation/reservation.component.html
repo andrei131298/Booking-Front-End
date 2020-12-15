@@ -1,2 +1,13 @@
 <app-header></app-header>
-<p>{{apartment.apartmentName}}</p>
+<div class="container">
+    <div class="reservation">
+        <h2 id="title">Reservation details</h2>
+        <img id="apPhoto" src={{apartment.photos[0]}}>
+        <p style="font-weight: bold; font-size: 26px;">{{apartment.apartmentName}}</p>
+        <p>Check-in: {{dateRange0Formatted}}</p>
+        <p>Check-out: {{dateRange1Formatted}}</p>
+        <p>Number of persons: {{persons}}</p>
+        <p>Total Price: {{ apartment.pricePerNight*period}}</p>
+        <button class="btn btn-primary" (click)="reserve()">Confirm and reserve</button>
+    </div>
+</div>

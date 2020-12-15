@@ -8,7 +8,7 @@ export class AuthService {
 
   logout(): void {
     window.location.reload();
-    localStorage.setItem("isLoggedIn", "false");
-    localStorage.removeItem("token");
+    sessionStorage.setItem("isLoggedIn", "false");
+    sessionStorage.removeItem("token");
   }
 }
