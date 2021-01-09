@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Property } from "./property.model";
-import { City } from "./city.model";
-import { Apartment } from "./apartment.model";
-import { Favourite } from "./favourite.model";
-import { Reservation } from "./reservation.model";
-import { User } from "./user.model";
-import { Owner } from "./owner.model";
+import { Property } from "../app/shared/property.model";
+import { City } from "../app/shared/city.model";
+import { Apartment } from "../app/shared/apartment.model";
+import { Favourite } from "../app/shared/favourite.model";
+import { Reservation } from "../app/shared/reservation.model";
+import { User } from "../app/shared/user.model";
+import { Owner } from "../app/shared/owner.model";
+import { LoginRequest } from "../app/shared/loginRequest";
 
 @Injectable({
   providedIn: "root",
@@ -21,6 +22,17 @@ export class ApiService {
 
   getCity(id: number) {
     return this.http.get(this.baseUrl + "/City/" + id.toString(), {
+      headers: this.header,
+    });
+  }
+
+  getLoginToken(loginRequest: LoginRequest) {
+    return this.http.post(this.baseUrl + "/User/login", loginRequest, {
+        headers: this.header, observe: 'response',
+    });
+}
+  getFavouriteByUserAndProperty(userId: number,propertyId:number){
+    return this.http.get(this.baseUrl + "/Favourite/user=" + userId.toString() + "/property="+ propertyId.toString(), {
       headers: this.header,
     });
   }
@@ -54,19 +66,29 @@ export class ApiService {
       headers: this.header,
     });
   }
+  getAlreadyReservedByDates(checkIn:string,checkOut:string){
+    return this.http.get(this.baseUrl + "/Reservation/dates?checkIn=" + checkIn.toString() + "&checkOut=" + checkOut.toString(), {
+      headers: this.header,
+    });
+  }
   getReservationsByUser(userId:number){
     return this.http.get(this.baseUrl + "/Reservation/user/" + userId.toString(), {
       headers: this.header,
     });
   }
   getUsers() {
-    return this.http.get(this.baseUrl + "/User", { headers: this.header });
+    return this.http.get(this.baseUrl + "/User/register", { headers: this.header });
   }
   getProperties() {
     return this.http.get(this.baseUrl + "/Property", { headers: this.header });
   }
   getApartments() {
     return this.http.get(this.baseUrl + "/Apartment", { headers: this.header });
+  }
+  getApartmentsByPropertyId(propertyId:number) {
+    return this.http.get(this.baseUrl + "/Apartment/propertyId/" + propertyId.toString(), {
+      headers: this.header,
+    });  
   }
   getCities() {
     return this.http.get(this.baseUrl + "/City", { headers: this.header });
@@ -86,37 +108,17 @@ export class ApiService {
         numberOfStars: property.numberOfStars,
         pricePerNight: property.pricePerNight,
         addressId: JSON.parse("[" + property.addressId + "]"),
-        //img: property.img,
       },
       { headers: this.header }
     );
   }
 
-  //   addOwner(artist: Artist) {
-  //     return this.http.post(this.baseUrl + "/Owner", artist, {
-  //       headers: this.header,
-  //     });
-  //   }
-  //   addAddress(song: Song) {
-  //     return this.http.post(this.baseUrl + "/Address", song, {
-  //       headers: this.header,
-  //     });
-  //   }
-  //   addFavourite(song: Song) {
-  //     return this.http.post(this.baseUrl + "/Favourite", song, {
-  //       headers: this.header,
-  //     });
-  //   }
   addUser(user: User) {
-    return this.http.post(this.baseUrl + "/User", user, {
+    return this.http.post(this.baseUrl + "/User/register", user, {
       headers: this.header,
     });
   }
-  //   addApartment(song: Song) {
-  //     return this.http.post(this.baseUrl + "/Apartment", song, {
-  //       headers: this.header,
-  //     });
-  //   }
+  
     addReservation(reservation:Reservation) {
       return this.http.post(this.baseUrl + "/Reservation", reservation, {
         headers: this.header,
@@ -128,58 +130,16 @@ export class ApiService {
         headers: this.header,
       });
     }
-    // addAlbum(album) {
-    //   return this.http.post(
-    //     this.baseUrl + "/album",
-    //     {
-    //       name: album.name,
-    //       releaseYear: album.releaseYear,
-    //       studioId: album.studioId,
-    //       artistId: JSON.parse("[" + album.artistId + "]"),
-    //       songId: JSON.parse("[" + album.songId + "]"),
-    //       img: album.img,
-    //     },
-    //     { headers: this.header }
-    //   );
-    // }
 
-  //   deleteAlbum(id: number) {
-  //     return this.http.delete(this.baseUrl + "/album/" + id.toString(), {
-  //       headers: this.header,
-  //     });
-  //   }
+    deleteFavourite(propertyId: number,userId:number) {
+      return this.http.delete(this.baseUrl + "/Favourite/user=" + userId.toString() + "/property="+ propertyId.toString(), {
+        headers: this.header,
+      });
+    }
 
-  //   deleteSong(id: number) {
-  //     return this.http.delete(this.baseUrl + "/song/" + id.toString(), {
-  //       headers: this.header,
-  //     });
-  //   }
-
-  //   deleteArtist(id: number) {
-  //     return this.http.delete(this.baseUrl + "/artist/" + id.toString(), {
-  //       headers: this.header,
-  //     });
-  //   }
-
-  //   editAlbum(album: Album) {
-  //     return this.http.put(
-  //       this.baseUrl + "/album/" + album.id.toString(),
-  //       album,
-  //       { headers: this.header }
-  //     );
-  //   }
-
-  //   editArtist(artist: Artist) {
-  //     return this.http.put(
-  //       this.baseUrl + "/artist/" + artist.id.toString(),
-  //       artist,
-  //       { headers: this.header }
-  //     );
-  //   }
-
-  //   editSong(song: Song) {
-  //     return this.http.put(this.baseUrl + "/song/" + song.id.toString(), song, {
-  //       headers: this.header,
-  //     });
-  //   }
+    editReservation(res: Reservation) {
+      return this.http.put(this.baseUrl + "/Reservation/" + res.id.toString(), res, {
+        headers: this.header,
+      });
+    }
 }

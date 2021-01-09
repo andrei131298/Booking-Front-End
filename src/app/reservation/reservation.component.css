@@ -20,11 +20,12 @@
 }
 .btn {
   background-color: rgb(23, 87, 143);
+  border: #ff7a59 solid 2px;
+  margin-top: 20px;
 }
 
 .btn:hover {
   color: #ff7a59;
-  border: #ff7a59 solid 2px;
   background: #fff;
 }
 #apPhoto {
@@ -32,4 +33,10 @@
   height: 200px;
   width: 250px;
   margin-bottom: 20px;
+}
+.review {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
 }

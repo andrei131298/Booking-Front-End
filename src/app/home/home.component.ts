@@ -1,8 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
-import { ApiService } from "../shared/api.service";
+import { ApiService } from "../../services/api.service";
 import { Property } from "../shared/property.model";
 import { DetailModalComponent } from "./detail-modal/detail-modal.component";
 import { Router } from "@angular/router";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-home",
@@ -16,6 +17,9 @@ export class HomeComponent {
   maxPers: number;
   maxDate=new Date();
   minDate=new Date();
+  dateRange0Formatted:string;
+  dateRange1Formatted:string;
+
   
 
   @ViewChild("detailModal") detailModal: DetailModalComponent;
@@ -33,11 +37,12 @@ export class HomeComponent {
   }
 
   onSubmit() {
-    
+    this.dateRange0Formatted=formatDate(this.bsRangeValue[0],'MM/dd/yyyy','en-US');
+    this.dateRange1Formatted=formatDate(this.bsRangeValue[1],'MM/dd/yyyy','en-US');
     if(this.bsRangeValue[1].valueOf() != this.bsRangeValue[0].valueOf())
     {
         this.router.navigate(["/search-results"],
-        {queryParams:{searchText:this.searchText, dateRange0:this.bsRangeValue[0], dateRange1:this.bsRangeValue[1], persons:this.maxPers}});
+        {queryParams:{searchText:this.searchText, dateRange0:this.dateRange0Formatted, dateRange1:this.dateRange1Formatted, persons:this.maxPers}});
     }
 
   }

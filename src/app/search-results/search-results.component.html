@@ -7,14 +7,14 @@
 </div>
 <div class="container">
   <div class="">
-    <div *ngIf="propertyResults.length == 0">
+    <!-- <div *ngIf="activeProperties.length == 0">
       <h1>There is no results to show</h1>
-    </div>
-    <ng-container *ngFor="let property of propertyResults">
+    </div> -->
+    <ng-container *ngFor="let property of activeProperties">
       <div class="view col mb-3 mr-3 p-0 hoverable">
         <img class="pozeCazari" src="{{ property.photo }}" />
         <div class="detaliiProp">
-          <p id="p1" (click)="set(property)">
+          <p id="p1" (click)="set(property.id)">
             {{ property.name.toString() }}
           </p>
           <p id="p2">

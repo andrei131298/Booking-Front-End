@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ModalDirective } from "ngx-bootstrap/modal";
 import { Property } from "../../shared/property.model";
 import { City } from "../../shared/city.model";
-import { ApiService } from "../../shared/api.service";
+import { ApiService } from "../../../services/api.service";
 
 @Component({
   selector: "app-detail-modal",

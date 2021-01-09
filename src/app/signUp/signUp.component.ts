@@ -8,7 +8,7 @@ import {
   Validators,
   FormControl,
 } from "@angular/forms";
-import { ApiService } from "../shared/api.service";
+import { ApiService } from "../../services/api.service";
 
 @Component({
   selector: "sign-up",
@@ -62,9 +62,9 @@ export class SignUpComponent implements OnInit {
         this.success = null;
       }, 3000);
       console.log("addUserForm submitted");
-      this.api["add" + this.selectedOption](this.addUserForm.value).subscribe();
+      this.api.addUser(this.addUserForm.value).subscribe();
       sessionStorage.setItem("isLoggedIn", "true");
-      sessionStorage.setItem("token", this.f.firstName.value);
+      sessionStorage.setItem("firstName", this.f.firstName.value);
       this.router.navigate([this.returnUrl]);
     } else {
       this.success = false;

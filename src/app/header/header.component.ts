@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
-  storage = sessionStorage.getItem("isLoggedIn");
+  loggedIn = sessionStorage.getItem("isLoggedIn");
   firstName: string;
   userId:number;
 
@@ -21,11 +21,10 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.firstName = sessionStorage.getItem("token");
+    this.firstName = sessionStorage.getItem("firstName");
     this.userId = parseInt(sessionStorage.getItem("userId"));
   }
   openProfile(){
-    this.router.navigate(["/user-profile"],
-    {queryParams:{userId:this.userId}});
+    this.router.navigate(["user-profile", this.userId]);
   }
 }

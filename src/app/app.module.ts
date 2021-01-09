@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { SearchPipe } from "./shared/search.pipe";
 import { FieldErrorDisplayComponent } from "./field-error-display/field-error-display.component";
@@ -17,13 +17,14 @@ import { CommonModule } from "@angular/common";
 import { SignUpComponent } from "./signUp/signUp.component";
 import { DetailModalComponent } from "./home/detail-modal/detail-modal.component";
 import { SearchResult } from "./search-results/search-results.component";
-import { AuthGuard } from "./auth.guard";
+import { AuthGuard } from "./guards/auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { PropertyProfileComponent } from './property-profile/property-profile.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './loader/loader.component';
+import { CustomColorDirective } from "./core/directives/custom-color.directive";
+import { ErrorInterceptor } from "./core/interceptors/error-interceptor";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LoaderComponent } from './loader/loader.component';
     PropertyProfileComponent,
     UserProfileComponent,
     LoaderComponent,
+    CustomColorDirective,
   ],
   imports: [
     CommonModule,
@@ -55,6 +57,12 @@ import { LoaderComponent } from './loader/loader.component';
   ],
   exports: [],
   bootstrap: [AppComponent],
-  providers: [AuthGuard, SearchResult],
+  providers: [AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+    ],
 })
 export class AppModule {}

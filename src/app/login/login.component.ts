@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { User } from "../shared/user.model";
+import { ApiService } from "../../services/api.service";
+import { LoginRequest } from "../shared/loginRequest";
+import { RequestResponse } from "../shared/requestResponse";
 
 import {
   FormBuilder,
@@ -9,7 +12,6 @@ import {
   Validators,
   FormControl,
 } from "@angular/forms";
-import { ApiService } from "../shared/api.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -23,11 +25,11 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  selectedOption = "User";
+  requestResponse = new RequestResponse();
+  request= new LoginRequest();
   loginForm: FormGroup;
   success: boolean;
   users: User[] = [];
-  returnUrl = "/home";
   triedWithoutLogin = JSON.parse(sessionStorage.getItem('triedWithoutLogin'));
 
   ngOnInit() {
@@ -37,15 +39,6 @@ export class LoginComponent implements OnInit {
       password: [null, Validators.required],
     });
 
-    this.api.getUsers().subscribe((data: User[]) => {
-      for (let i = 0; i < data.length; i++) {
-        this.api.getUser(data[i].id).subscribe((info: User) => {
-          info.id = data[i].id;
-          this.users.push(info);
-        });
-      }
-    });
-    console.log(this.users);
   }
 
   isFieldValid(field: string) {
@@ -65,39 +58,59 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     if (this.loginForm.valid) {
-      this.success = true;
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
       console.log("loginForm submitted");
-    } else {
+      this.request.email = this.f.email.value;
+      this.request.password = this.f.password.value;
+      this.api.getLoginToken(this.request).subscribe((data) => {
+          this.requestResponse = data.body as RequestResponse;
+          console.log(this.requestResponse.token)
+      }, error => {
+          console.log(error);
+
+      },
+
+      () => {
+
+        if (this.requestResponse.token==null){
+          this.success = false;
+          setTimeout(() => {
+            this.success = null;
+          }, 3000);
+        }
+        else {
+
+          this.success = true;
+          setTimeout(() => {
+            this.success = null;
+          }, 3000);
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("userId", JSON.stringify(this.requestResponse.id));
+          this.api.getUser(this.requestResponse.id).subscribe((user: User) => {
+            sessionStorage.setItem('firstName',user.firstName);
+          });
+          if(this.triedWithoutLogin == true){
+            sessionStorage.setItem("token", this.requestResponse.token);
+            this.router.navigate(["/reservation"]);
+          }
+          else{
+            sessionStorage.setItem("token", this.requestResponse.token);
+            setTimeout(() => {
+              this.router.navigate(["/home"]);
+            }, 3000);
+          }
+        }
+      }
+      );
+    } 
+    else {
       this.success = false;
       setTimeout(() => {
         this.success = null;
       }, 3000);
       this.validateAllFormFields(this.loginForm);
     }
-    var user = this.users.find(
-      (x) =>
-        x.email === this.f.email.value &&
-        x.password === this.f.password.value
-    );
-    if (!user) this.success = false;
-    else {
-      sessionStorage.setItem("isLoggedIn", "true");
-      sessionStorage.setItem("userId", JSON.stringify(user.id));
-      if(this.triedWithoutLogin == true){
-        sessionStorage.setItem("triedWithoutLogin", "false");
-        sessionStorage.setItem("token", user.firstName);
-        this.router.navigate(["/reservation"]);
-      }
-      else{
-        sessionStorage.setItem("token", user.firstName);
-        setTimeout(() => {
-          this.router.navigate([this.returnUrl]);
-        }, 3000);
-      }
-    }
+    
+
   }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {

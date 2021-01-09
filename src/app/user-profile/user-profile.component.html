@@ -6,9 +6,9 @@
         <img class="profilePhoto" src="assets/images/profile.png" />
         <p id="firstName"> {{activeUser.firstName}} </p>
     </div>
-    <!-- <div class="rank"> Ranking </div> -->
+    <div class="rank"> Date personale </div>
 </div>
-<h1 id="title">Properties and reservations</h1>
+<h1 id="title">Saved properties and reservations</h1>
 <div class="options">
     <div>
       <ul class="nav">
@@ -21,27 +21,75 @@
 
 </div>
 <div *ngIf="selectedOption == 'Saved properties'">
-
   <div *ngFor="let property of savedProperties">
-        {{property.propertyName}}
+        <div class="secondView" >
+          <!-- <img class="apPhoto" src="{{property.photos[0] }}" /> -->
+          <div class="apDetail">
+                <p id="apName" >
+                  {{property.propertyName}}
+                </p>
+                <button type="button" style="margin-top: 20px;" class="btn btn-primary" (click)="deleteFavourite(property.propertyId)">Remove from favourites</button>
+          </div>  
+        </div>
       </div>
 </div>
-
   <div *ngFor="let reservation of userReservations">
+
     <div *ngIf="selectedOption == 'Future reservations'">
-      {{reservation.checkIn}}
-    <div *ngIf="reservation.checkIn >currentDate && reservation.checkOut>currentDate ">
-      {{reservation.propertyName}} - {{reservation.apartmentName}}
-    </div>
+      <div *ngIf="reservation.checkIn >currentDate && reservation.checkOut>currentDate ">
+        <div class="secondView" >
+          <!-- <img class="apPhoto" src="{{apartment.photos[0] }}" /> -->
+          <div class="apDetail">
+                <p id="apName" >
+                  {{ reservation.propertyName}} - {{ reservation.apartmentName}}
+                </p>
+                <p>
+                  {{reservation.checkIn | date:'longDate'}} - {{reservation.checkOut | date:'longDate'}}
+                </p>
+                <p id="totalPrice" >
+                  Price: {{ reservation.price}}
+                </p>
+          </div>  
+        </div>
+      </div>
     </div>
     <div *ngIf="selectedOption == 'Reservations history'">
       <div *ngIf="reservation.checkIn <currentDate && reservation.checkOut<currentDate ">
-        {{reservation.propertyName}} - {{reservation.apartmentName}}
+        <div class="secondView" >
+          <!-- <img class="apPhoto" src="{{apartment.photos[0] }}" /> -->
+          <div class="apDetail">
+                <p id="apName" >
+                  {{ reservation.propertyName}} - {{ reservation.apartmentName}}
+                </p>
+                <p>
+                  {{reservation.checkIn | date:'longDate'}} - {{reservation.checkOut | date:'longDate'}}
+                </p>
+                <p id="totalPrice" >
+                  Price: {{ reservation.price}}
+                </p>
+                <button *ngIf="reservation.review == '' || reservation.review == null" type="button" style="margin-top: 20px;" class="btn btn-primary" (click)="toReviewPage(reservation)">Add a review</button>
+                <button *ngIf="reservation.review != '' && reservation.review != null" type="button" style="margin-top: 20px;" class="btn btn-primary" (click)="toDetailsPage(reservation)">See details</button>
+          </div>  
+        </div>
       </div>
     </div>
     <div *ngIf="selectedOption == 'Current reservations'">
+     
       <div *ngIf="reservation.checkIn < currentDate && reservation.checkOut>currentDate ">
-        {{reservation.propertyName}} - {{reservation.apartmentName}}
+        <div class="secondView" >
+          <!-- <img class="apPhoto" src="{{apartment.photos[0] }}" /> -->
+          <div class="apDetail">
+                <p id="apName" >
+                  {{ reservation.propertyName}} - {{ reservation.apartmentName}}
+                </p>
+                <p>
+                  {{reservation.checkIn | date:'longDate'}} - {{reservation.checkOut | date:'longDate'}}
+                </p>
+                <p id="totalPrice" >
+                  Price: {{ reservation.price}}
+                </p>
+          </div>  
+        </div>
       </div>
     </div>
   </div>

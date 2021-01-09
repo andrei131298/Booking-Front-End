@@ -16,11 +16,21 @@ h1 {
   max-width: 30%;
   text-align: center;
   margin: auto;
-  border-top-color: white !important;
   padding-bottom: 3rem;
+  background-color: black;
+  border-radius: 10px;
+  border-bottom: 12px solid rgb(23, 87, 143);
+  border-top: 12px solid rgb(23, 87, 143);
+}
+input {
+  margin-bottom: 20px;
 }
 
-.button {
+label {
+  color: white;
+  font-size: 20px;
+}
+button {
   background-color: rgb(23, 87, 143);
 }
 

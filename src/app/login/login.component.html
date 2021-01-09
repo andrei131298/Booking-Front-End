@@ -39,16 +39,16 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-12">
-        <button class="btn" (click)="onSubmit()">Submit</button>
+      <div class="">
+        <button class="btn btn-dark" (click)="onSubmit()">Submit</button>
       </div>
     </div>
 
-        <button class="btn" (click)="reset()">Reset</button>
+        <button class="btn btn-dark" (click)="reset()">Reset</button>
         
   </form>
   <p *ngIf="success" style="color: green; font-size: 22px">
-    {{ selectedOption.toUpperCase() }} found
+    User found
   </p>
   <p *ngIf="success === false" style="color: red; font-size: 22px">
     Something went wrong

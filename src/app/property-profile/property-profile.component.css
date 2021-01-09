@@ -57,7 +57,6 @@
 }
 .btn:hover {
   color: #ff7a59;
-  border: #ff7a59 solid 2px;
   background: #fff;
 }
 #apName:hover {
@@ -68,4 +67,15 @@
   object-fit: cover;
   height: 200px;
   width: 200px;
+}
+.followup {
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+}
+
+.unfollow {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
 }

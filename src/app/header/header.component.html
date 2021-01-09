@@ -1,9 +1,9 @@
 <nav class="navbar navbar-dark bg-dark">
   <a routerLink="/" class="navbar-brand">
-    <h2 class="logo">VacayCheck</h2>
+    <h2 class="logo" [appCustomColor]="'red'" >VacayCheck</h2>
   </a>
 
-  <div *ngIf="storage == 'true'">
+  <div *ngIf="loggedIn == 'true'">
     <div class="container">
       <div class="firstName" (click)="openProfile()">
         {{ firstName }}
@@ -13,7 +13,7 @@
       </button>
     </div>
   </div>
-  <div *ngIf="storage == 'false' || storage==null">
+  <div *ngIf="loggedIn == 'false' || loggedIn==null">
     <div>
       <ul class="nav navbar">
         <li class="nav-item"></li>

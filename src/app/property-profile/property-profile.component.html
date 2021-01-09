@@ -19,10 +19,15 @@
               *ngFor="let star of counter(property.numberOfStars)"
             />
           </div>
-          <button type="button" style="margin-top: 20px;" class="btn btn-primary" (click)="addToFavourites()">Add to favourites</button>
+          <button *ngIf="loggedIn=='true'" class="btn" style="background-color: rgb(240, 226, 226);margin-top: 20px;" [ngClass]="{'followup' : activeFavourite!=null,
+                'unfollow' : activeFavourite == null }"
+                                (click)="changeStyle();addToFavourites()">
+                {{activeFavourite!=null ? 'Remove from favourites' : (activeFavourite == null ? 'Add to favourites' : '')}}
+            </button>
+            <p style="color: red; font-size: 24px;" *ngIf="error == true">You need to login</p>
         </div>
       </div>
-      <div class="secondView" *ngFor="let apartment of apartmentResults2">
+      <div class="secondView" *ngFor="let apartment of apartments">
         <img class="apPhoto" src="{{apartment.photos[0] }}" />
         <div class="apDetail">
               <p id="apName" >
@@ -36,7 +41,7 @@
                   />
                 </div>
               <p id="totalPrice" >
-                {{ apartment.pricePerNight*period}}
+                Total price: {{apartment.pricePerNight*period}}
               </p>
               <button type="button" class="btn btn-primary" (click)="check();set(apartment.id);">Reserve</button>
         </div>  
